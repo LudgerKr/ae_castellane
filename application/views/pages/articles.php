@@ -38,32 +38,39 @@
             {
               if($article['ID_User'] == $_SESSION['userid'] OR $article['ID_User'] != $_SESSION['userid'] )
               {
+				  
           ?>
           
             <!-- Formulaire -->
           <h4 class="text-muted mt-5">Commentaires</h4><hr>
-          <?php 
+          
+			  
+		  <?php 
             foreach($comments as $row):
               if($row['ID_Catégory'] == $article['ID_Catégorie']):
+				 if($row['Id_Article'] == $article['ID_Article']):
           ?>
             <div class="container border mb-2">
-            <h5><i>@<?= $row['Nom']?> <?= $row['Prénom']?></i></h5>
-            <div class="container"><?= $row['Contenu'] ?></div>
-              <?php if($row['ID_Utilisateur'] == $_SESSION['userid']):?>
-                <a type="submit" href="<?= site_url('forum/delete_commentaires/' . $row['ID_Commentaire']) ?>" class="btn btn-danger m-3"><i class="fa fa-trash"></i></a>
-              <?php endif; ?>
-            </div>
-              <?php endif; endforeach; ?>
+				<h5><i>@<?= $row['Nom']?> <?= $row['Prénom']?></i></h5>
+				<div class="container"><?= $row['Contenu'] ?></div>
+				  <?php if($row['ID_Utilisateur'] == $_SESSION['userid']):?>
+					<a type="submit" href="<?= site_url('forum/delete_commentaires/' . $row['ID_Commentaire']) ?>" class="btn btn-danger m-3"><i class="fa fa-trash"></i></a>
+				  <?php endif; ?>
+				</div>
+              <?php endif; endif; endforeach;?>
           <hr>
+			  
+			  
+			  
           <h6>Poster un commentaire</h6>
            <?= form_open('forum/insert_comment'); ?>
                 <input  type="hidden" name="userid" value="<?= $_SESSION['userid'] ?>">
                 <input  type="hidden" name="categorieid" value="<?= $_GET['categorie'] ?>">
-                <input  type="hidden" name="articleid" value="">
+                <input  type="hidden" name="articleid" value="<?= $article['ID_Article'] ?>">
                 <textarea class="form-control" rows="5" id="comment" name="content"></textarea>
                 <button type="submit" class="btn btn-success mt-2">Poster</button>
             </form>
-          <?php 
+          <?php
               }
               elseif($article['ID_User'] != $_SESSION['userid'])
               {}}

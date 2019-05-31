@@ -27,6 +27,12 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('admin/certificats') ?>">Certificats</a>
     </li>
+	<li class="nav-item">
+      <a class="nav-link" href="<?= site_url('admin/vehicule') ?>">Vehicules</a>
+    </li>
+	<li class="nav-item">
+      <a class="nav-link" target="blank" href="https://analytics.google.com/analytics/web/?authuser=0#/report-home/a137353005w197830555p192588774">Statistique Google</a>
+    </li>
   </ul>
 <div class="container mt-5">
 <h2>Liste des utilisateurs</h2>

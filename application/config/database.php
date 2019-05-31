@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'root',
-	'database' => 'castellane',
+	'hostname' => 'aecastelemjar.mysql.db',
+	'username' => 'aecastelemjar',
+	'password' => 'Mathieud95',
+	'database' => 'aecastelemjar',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

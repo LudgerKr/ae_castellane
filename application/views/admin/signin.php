@@ -22,7 +22,6 @@
                     <input type="password" class="form-control" id="inputPassword4" placeholder="*******" required name="password">
                 </div>
                 <div class="form-group col-md-6">
-                  <a href="<?= site_url("admin/generer")?>"> Mot de passe oublier ?</a><br>
                   <input type="submit" class="btn btn-danger">
                 </div> 
               </form>

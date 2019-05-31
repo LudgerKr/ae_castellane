@@ -6,7 +6,17 @@
           <p class="text-center">Les tarifs des packs permis (Code + Conduite)</p><hr>
       </div>
       <div class="row articles">
-        <?php foreach ($boutiques as $boutique): ?>
+        <?php 
+        	foreach ($boutiques as $boutique):
+	            if(!empty($_SESSION['userid']))
+                {
+				foreach($payment as $row):
+					if($_SESSION['userid'] == $row['Id_User']):
+						redirect('user/payment');
+					endif;
+				endforeach;
+				}
+		 ?>
           <div class="col-sm-6 col-md-4 item"><a><h1 class="card-title pricing-card-title"><?= $boutique['price'] ?><small class="text-muted">/ EUR </small></h1></a>
               <h3 class="name"><?= $boutique['title'] ?></h3>
               <ul class="description">

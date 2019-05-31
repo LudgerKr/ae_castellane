@@ -13,6 +13,11 @@ class Admin_model extends CI_Model
     $query = $this->db->get('users');
     return $query->result_array();
   } 
+  public function get_vehicles()
+  {
+    $query = $this->db->get('vehicles');
+    return $query->result_array();
+  }
   public function get_seance()
   {
     $query = $this->db->get('seance');
@@ -93,6 +98,11 @@ class Admin_model extends CI_Model
     $query = $this->db->get_where('users', [strtolower('email') => $email, 'right'=>'Administrateur']);
     return $query->row_array();
   }
+  public function get_vehicles_where($id)
+  {
+    $ban = $this->db->get_where('vehicles', ['idvehicles' =>$id]);
+    return $ban->row_array();
+  }
 
   public function check_ban($email)
   {
@@ -134,7 +144,7 @@ class Admin_model extends CI_Model
   public function add_question()
   {
     $data = [
-      "question" => $this->input->post('question')
+      "question" => $this->input->post('question')." ?"
     ];
     $this->db->insert('quizzQuestions', $data);
   }
@@ -162,14 +172,10 @@ class Admin_model extends CI_Model
   public function check_password($email, $password)
   {
     $user = $this->get_admins($email);
-    if (empty($user))
-    {
-      return FALSE;
-    }
-    if (!password_verify($password, $user['password']))
-    {
-      return FALSE;
-    }
+		if (!password_verify($password, $user['password']))
+		{
+		  redirect('admin/passwordError');
+		}
     return TRUE;
   }
   ///////////// Requete DELETE ///////////// 
@@ -252,7 +258,7 @@ class Admin_model extends CI_Model
     ];
     $this->db->where('IdReponse', $idreponse);
     $this->db->update('quizzAnswers', $data);
-    redirect('admin/acceuil');
+    redirect('admin/quizz');
   }
   public function update_categories()
   {
@@ -273,5 +279,58 @@ class Admin_model extends CI_Model
     ];
     $this->db->where('idnew', $idnews);
     $this->db->update('news', $data);
+  }
+  public function add_vehicles()
+  {
+    $data = [
+      'brand' => $this->input->post('brand'),
+      'mileage' => $this->input->post('mileage'),
+	  'licenseplate' => $this->input->post('licenseplate'),
+	  'status' => $this->input->post('status')
+    ];
+    $this->db->insert('vehicles', $data);
+    redirect('admin/vehicule');
+  }
+  public function form_add()
+  {	  
+	$a = $this->get_vehicles_where($this->input->post('idVehicule'));
+	$result = $a['mileage'] + $this->input->post('mileage');
+	
+	if($result >= 500000)
+	{
+		$id = $this->input->post('idVehicule');
+		$this->removeVehicle($id);
+	}else{
+	  
+	$la = $this->input->post('idVehicule');
+	$data = [
+	  "mileage"=> $result
+	];
+	$this->db->where('idvehicles', $la);
+	$this->db->update('vehicles', $data); 
+	redirect('admin/vehicule');	  
+  	}
+  }
+	
+  public function removeVehicle($id)
+  {
+    $data = [
+      'status' => 'Détruite'
+    ];
+    $this->db->where('idvehicles', $id);
+    $this->db->update('vehicles', $data);
+	redirect('admin/vehicule');	 
+  }
+  public function update_vehicles()
+  {
+    $idvehicle = $this->input->post('idvehicles');
+    $data = [
+      'brand' => $this->input->post('brand'),
+      'mileage' => $this->input->post('mileage'),
+	  'licenseplate' => $this->input->post('licenseplate'),
+	  'status' => $this->input->post('status')
+    ];
+    $this->db->where('idvehicles', $idvehicle);
+    $this->db->update('vehicles', $data);
   }
 }

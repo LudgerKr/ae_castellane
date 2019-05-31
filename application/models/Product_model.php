@@ -25,7 +25,12 @@ class Product_model extends CI_Model{
         // return fetched data
         return !empty($result)?$result:false;
     }
-    
+    public function get_paymentResult()
+    {
+    	$query = $this->db->get('result_payments');
+    	return $query->result_array();
+    }
+	
     public function insertTransaction($data){
         $insert = $this->db->insert($this->transTable,$data);
         return $insert?true:false;

@@ -27,6 +27,12 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('admin/certificats') ?>">Certificats</a>
     </li>
+	     <li class="nav-item">
+      <a class="nav-link" href="<?= site_url('admin/vehicules') ?>">Vehicules</a>
+    </li>
+	<li class="nav-item">
+      <a class="nav-link" target="blank" href="https://analytics.google.com/analytics/web/?authuser=0#/report-home/a137353005w197830555p192588774">Statistique Google</a>
+    </li>
   </ul> 
         
 <div class="container">
@@ -40,7 +46,7 @@
           <h3>Saisir la question</h3>
           <?= form_open('admin/add_question') ?>
             <div class="form-group">
-              <label >* Question (Le point d'intérrogation est automatique)</label>
+              <label >* Question (<label class="text-danger">Le point d'intérrogation est automatique</label>)</label>
               <input type="text" class="form-control" name="question">
               <input type="submit" class="btn btn-success mt-3">
             </div>
@@ -93,6 +99,7 @@
             </thead>
             <tbody>
             <?php foreach ($get_quizz as $row):?>
+				
               <tr class="text-center">
                 <td><?= $row['Id_Question'] ?></td>
                 <td><?= $row['Question'] ?></td>
@@ -110,8 +117,12 @@
                     <div class="form-group col-12 col-md-6">
                           <label for="inputState">Réponse est :</label>
                           <select id="inputState" class="form-control" name="IdReponse">
-                            <?php $reponse = $row['Reponse']; $rep = explode(",", $reponse);?>
-                            <option value="<?= $row['Id_Reponse'] ?>"><?php foreach($rep AS $row1){?><?= $row1[$rep];?><?php } ?></option>
+                            <?php $reponse = $row['Reponse']; $rep = explode(",", $reponse); ?>
+							  <?php foreach($rep as $row1){ ?>
+                            <option value="<?= $row['Id_Reponse'] ?>">
+								<?= $row1 ?>
+							</option>
+							  <?php } ?>
                           </select>
                       </div>
                       <div class="form-group col-12 col-md-6">
@@ -119,9 +130,9 @@
                           <input type="text" class="form-control" id="inputtel" name="reponse">
                       </div>
                       <div class="form-group col-12 col-md-6">
-                          <label for="inputState">* cette réponse est la <?php if($row['Correct']){echo '<b class="text-success">Bonne réponse</b>';}else{echo'<b class="text-danger">Mauvaise réponse</b>';} ?></label>
+                          <label for="inputState">* sélectionner la réponse</label>
                           <select id="inputState" class="form-control" name="correct">
-                              <option selected disabled value="<?= $row['Correct'] ?>"><?php if($row['Correct']){echo '<b class="text-success">Bonne réponse</b>';}else{echo'<b class="text-danger">Mauvaise réponse</b>';} ?></option>
+                              <option selected disabled value="<?= $row['Correct'] ?>">sélectionner la réponse</option>
                                   <option value="1">Bonne réponse</option>
                                   <option value="0">Mauvaise réponse</option>
                           </select>
@@ -134,7 +145,25 @@
                 </div>
               </td>
                 </div>
-                <td></td>
+                <td>
+				<b class="text-danger">Mauvaise réponse</b><br>
+				<b class="text-success mb-5">Bonne réponse</b><br><hr>
+				<div class="mt-2">
+			     <?php foreach($get_quizzAnswers AS $row1){ ?>
+				  <?php 
+	  				if($row['Id_Question'] == $row1['IdQuestion'])
+					{
+						if($row1['correct'] == 1){
+							echo '<span class="text-success">'.$row1['reponse'].'</span><br>';
+						}
+						elseif($row1['correct'] != 1){
+							echo '<span class="text-danger">'.$row1['reponse'].'</span><br>';
+						}
+					}
+				  ?>
+				  <?php } ?>
+				 </div>
+				</td>
                 <td></td>
               </form>
             <?php  endforeach; ?>  

@@ -27,6 +27,12 @@
   <li class="nav-item">
     <a class="nav-link" href="<?= site_url('admin/certificats') ?>">Certificats</a>
   </li>
+  <li class="nav-item">
+	 <a class="nav-link" href="<?= site_url('admin/vehicule') ?>">Vehicules</a>
+  </li>
+  <li class="nav-item">
+      <a class="nav-link" target="blank" href="https://analytics.google.com/analytics/web/?authuser=0#/report-home/a137353005w197830555p192588774">Statistique Google</a>
+    </li>
 </ul> 
 
 <div class="container mt-5"> 
@@ -67,8 +73,8 @@
                 <div class="input-group-append"></div>
               </div>
             </div>
-          </div>
         </form>
+	 </div>
 
         <div class="col-md-8 order-md-1">
 
@@ -98,7 +104,7 @@
           <?= form_open('admin/edit_categories'); ?>
             <td><input type="text" class="form-control" name="name" value="<?= $row['name'] ?>"></td>
             <td><input type="text" class="form-control" name="content" value="<?= $row['content']?>"></td>
-            <td><button type="submit" class="btn btn-warning text-white" data-toggle="collapse" data-target="#modifier">Modifier</button></td>
+            <td><button type="submit" class="btn btn-success text-white" data-toggle="collapse" data-target="#modifier">Modifier</button></td>
             <td><input type="hidden" name="idcategory" value="<?= $row['idcategory'] ?>"></td>
           </form>
           </td>

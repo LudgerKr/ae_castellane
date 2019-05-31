@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="inputtel">* Téléphone</label>
-                                <input type="text" class="form-control" id="inputtel" name="phone">
+                                <input type="text" class="form-control" id="inputtel" name="phone" placeholder="0xxxxxxxxx">
                             </div>
                             <div class="form-group col-12 col-md-6">
                             </div>
@@ -54,8 +54,14 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="inputreply">Réponse</label>
-                                <input type="text" class="form-control" id="inputreply" name="reply">
+                                <input type="text" class="form-control" id="inputreply" name="reply" placeholder="Réponse">
                             </div>
+							
+                            <div class="form-group col-12 col-md-12">
+								<div class="checkboxy">
+									<input name="terms" id="checky" value="1" type="checkbox" /> <label class="terms">J'accepte les <a target="blank" href="<?= site_url('user/terms')?>">conditions d'utilisation</a></label>
+								</div>
+							</div>
                             <input type="submit" class="btn btn-danger">
                         </div>
                     </form>
@@ -64,5 +70,3 @@
         </div>
     </div>
 </div>
-
-   

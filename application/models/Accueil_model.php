@@ -13,7 +13,5 @@ class Accueil_model extends CI_Model
     $query = $this->db->get('news');
     return $query->result_array();
   }
-  
-
 }
  

@@ -27,6 +27,12 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('admin/certificats') ?>">Certificats</a>
     </li>
+	<li class="nav-item">
+      <a class="nav-link" href="<?= site_url('admin/vehicule') ?>">Vehicules</a>
+    </li>
+	<li class="nav-item">
+      <a class="nav-link" target="blank" href="https://analytics.google.com/analytics/web/?authuser=0#/report-home/a137353005w197830555p192588774">Statistique Google</a>
+    </li>
   </ul>
 
 <canvas class="my-4 w-100 container" id="myChart" width="900" height="380"></canvas>
@@ -162,6 +168,13 @@
       }
     });
   </script>
+<script>
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    $('.toast').toast('show');
+  });
+});
+</script>
 <?php 
 }else{
   echo '  

@@ -27,6 +27,12 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('admin/certificats') ?>">Certificats</a>
     </li>
+	<li class="nav-item">
+      <a class="nav-link" href="<?= site_url('admin/vehicule') ?>">Vehicules</a>
+    </li>
+	<li class="nav-item">
+      <a class="nav-link" target="blank" href="https://analytics.google.com/analytics/web/?authuser=0#/report-home/a137353005w197830555p192588774">Statistique Google</a>
+    </li>
   </ul>
         
 <div class="container">
@@ -82,7 +88,7 @@
                     <td><input id="inputS" type="text" class="form-control" name="title" value="<?= $row['Titre'] ?>"></td>
                     <td><textarea class="form-control mb-1" rows="5" id="comment" name="content"><?= $row['Contenu']?></textarea></td>
                     <td><input  type="hidden" name="userid" value="<?= $_SESSION['connect_admin']?>"></td>
-                    <td><button type="submit" class="btn btn-warning text-white container" data-toggle="collapse" data-target="#modifier">Modifier</button></td>
+                    <td><button type="submit" class="btn btn-success text-white container" data-toggle="collapse" data-target="#modifier">Modifier</button></td>
                     <td><input  type="hidden" name="idnews" value="<?= $row['ID_News'] ?>"></td>
                   </form> 
                 </tr>
@@ -93,6 +99,7 @@
       </main>
     </div>
   </div>
+
 <?php 
 }else{
   echo '  

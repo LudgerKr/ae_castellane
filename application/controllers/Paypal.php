@@ -21,6 +21,8 @@ class Paypal extends CI_Controller{
         $data['status']         = $paypalInfo["st"];
         
         // Pass the transaction data to view
+		$payment = $this->product_model->get_paymentResult();
+    	$data['payment'] = $payment;  
         $this->load->view('paypal/success', $data);
     }
      

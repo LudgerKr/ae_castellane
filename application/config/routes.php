@@ -50,9 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['admin/delete_news/(:any)'] = 'admin/delete_news/$1';
+$route['admin/delete_vehicles/(:any)'] = 'admin/delete_vehicles/$1';
 $route['admin/delete_user/(:any)'] = 'admin/delete_user/$1';
 $route['admin/delete_question_quizz/(:any)'] = 'admin/delete_question_quizz/$1';
 $route['admin/delete_categories/(:any)'] = 'admin/delete_categories/$1';
+
+$route['monitor/delete_appointment/(:any)'] = 'monitor/delete_appointment/$1';
 
 //Controleur Administrateur
 $route['signin'] = 'admin/admin';

@@ -14,6 +14,9 @@ class Boutique extends CI_Controller
   public function boutique()
   {
     $boutiques = $this->boutique_model->get_boutiques();
+	$payment = $this->boutique_model->get_paymentResult();
+	  
+    $data['payment'] = $payment;  
     $data['boutiques'] = $boutiques;
     $data['title'] = 'Boutique';
     $this->load->view('layouts/header');

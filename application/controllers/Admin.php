@@ -58,7 +58,7 @@ class Admin extends CI_Controller {
     $this->load->library('form_validation');
 
     $this->form_validation->set_rules('email', '<b>email</b>', 'required|valid_emails');
-    $this->form_validation->set_rules('password', '<b>mot de passe</b>', 'required|min_length[6]|max_length[25]|alpha_numeric');
+    $this->form_validation->set_rules('password', '<b>mot de passe</b>', 'required|min_length[4]|max_length[25]|alpha_numeric');
 
     if ($this->form_validation->run() == TRUE)
     {
@@ -95,6 +95,54 @@ class Admin extends CI_Controller {
     {
       $data['title'] = 'Connexion administrateur';    
       $this->load->view('layouts/header');
+      $this->load->view('admin/signin', $data);
+      $this->load->view('layouts/footer');
+    }
+  }
+  public function passwordError()
+  {
+    $this->load->library('form_validation');
+
+    $this->form_validation->set_rules('email', '<b>email</b>', 'required|valid_emails');
+    $this->form_validation->set_rules('password', '<b>mot de passe</b>', 'required|min_length[4]|max_length[25]|alpha_numeric');
+
+    if ($this->form_validation->run() == TRUE)
+    {
+      $email = $this->input->post('email');
+      $password = $this->input->post('password');
+
+      $admin_id = $this->admin_model->check_password($email, $password);
+      if ($admin_id) {
+    
+        $ban = $this->admin_model->check_ban($email);
+        if($ban != TRUE)
+        {
+          $data['title'] = 'Banni';
+          $this->load->view('layouts/header');
+          $this->load->view('user/ban', $data);
+          $this->load->view('layouts/footer');
+        }
+        elseif($admin_id != FALSE)
+        { 
+          $_SESSION['connect_admin'] = TRUE;
+          $_SESSION['connect_admin'] = $admin_id;
+          redirect('admin/accueil');
+        }
+      }
+      else
+      {
+        $data['errors'] = 'Mauvais Identifiant';
+        $this->load->view('layouts/header');
+		$this->load->view('form/passwordError');
+        $this->load->view('admin/signin', $data);
+        $this->load->view('layouts/footer');
+      }
+    }
+    else
+    {
+      $data['title'] = 'Connexion administrateur';    
+      $this->load->view('layouts/header');
+	  $this->load->view('form/passwordError');
       $this->load->view('admin/signin', $data);
       $this->load->view('layouts/footer');
     }
@@ -242,7 +290,7 @@ class Admin extends CI_Controller {
   public function news()
   {
     $this->form_validation->set_rules('title', 'Titre', 'required');
-    $this->form_validation->set_rules('content', 'Contenu', 'required');
+   	$this->form_validation->set_rules('content', 'Contenu', 'required');
 
     if ($this->form_validation->run() === FALSE)
     {
@@ -292,7 +340,7 @@ class Admin extends CI_Controller {
   {
     $this->form_validation->set_rules('IdQuestion', 'identifant question', 'required');
     $this->form_validation->set_rules('IdReponse', 'identifant reponse', 'required');
-    $this->form_validation->set_rules('reponse', 'réponse', 'required|min_length[2]|max_length[50]|alpha');
+    $this->form_validation->set_rules('reponse', 'réponse', 'required|min_length[2]|max_length[50]');
     $this->form_validation->set_rules('correct', '(Bonne / Mauvaise) réponse', 'required');
 
     if ($this->form_validation->run() === FALSE)
@@ -407,7 +455,7 @@ class Admin extends CI_Controller {
   public function delete_user($id)
   {
     $this->admin_model->delete_user($id);
-    redirect('admin/accueil');
+    redirect('admin/user');
   }
   public function delete_question_quizz($id)
   {
@@ -433,6 +481,68 @@ class Admin extends CI_Controller {
   {
     $this->admin_model->delete_news($id);
     redirect('admin/news');
+  }
+// vehicule a
+  public function vehicule()
+  {
+	$this->form_validation->set_rules('', '', 'required');
+	  
+    if ($this->form_validation->run() === FALSE) // si formulaire non rempli OU rempli mais incomplet
+    {
+		$get_vehicles = $this->admin_model->get_vehicles();
+			
+		$data['get_vehicles'] = $get_vehicles;
+		$data['title'] = 'Véhicule';      
+		
+		$this->load->view('layouts/header');
+		$this->load->view('admin/vehicule', $data);
+		$this->load->view('layouts/footer');
+	}
+	else
+	{
+	    $get_vehicles = $this->admin_model->get_vehicles();
+			
+		$data['get_vehicles'] = $get_vehicles;
+		$data['title'] = 'Véhicule';  
+		
+		$this->load->view('layouts/header');
+		$this->load->view('admin/vehicule', $data);
+		$this->load->view('layouts/footer');
+	}  
+  }
+public function form_add()
+{    
+	$this->form_validation->set_rules('idVehicule', 'vehicule', 'required');
+	$this->form_validation->set_rules('mileage', 'Kilometrage', 'required');
+
+	$this->admin_model->form_add();
+}
+ public function edit_vehicles()
+  {
+    $this->form_validation->set_rules('brand', 'Marque', 'required');
+    $this->form_validation->set_rules('mileage', 'Kilometrage', 'required');
+	$this->form_validation->set_rules('licenseplate', 'plaque immatriculation', 'required');
+    $this->form_validation->set_rules('status', 'statut', 'required');
+    $this->form_validation->set_rules('idvehicles', 'identifiant', 'required');
+	  
+    if ($this->form_validation->run() != FALSE)
+    {
+      $vehicles = $this->admin_model->update_vehicles();
+    } 
+      redirect('admin/vehicule');
+  }
+  public function add_vehicles()
+  {
+    $this->form_validation->set_rules('brand', 'marque', 'required');
+    $this->form_validation->set_rules('mileage', 'kilometrage', 'required');
+	$this->form_validation->set_rules('licenseplate', 'plaque immatriculation', 'required');
+    $this->form_validation->set_rules('status', 'statut', 'required');
+	  
+    if ($this->form_validation->run() != FALSE)
+    {
+      $vehicles = $this->admin_model->add_vehicles();
+    } 
+      redirect('admin/vehicule');
   }
   //////////////////////////////////// DECONNEXION ////////////////////////////////////
   public function logout()

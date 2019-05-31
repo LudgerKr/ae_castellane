@@ -9,7 +9,7 @@
 
   <?php if(empty($_SESSION['userid'])): ?>
   <div class="alert alert-warning mt-3">
-    <strong>Attention !</strong>Vous devez être <a href="<?=site_url('user/signin')?>" class="alert-link"> connecté </a> pour créer un nouveau sujet. (<a href="<?=site_url('user/signup')?>" class="alert-link"> Inscription </a>)
+    <strong>Attention !</strong> Vous devez être <a href="<?=site_url('user/signin')?>" class="alert-link"> connecté </a> pour créer un nouveau sujet. (<a href="<?=site_url('user/signup')?>" class="alert-link"> Inscription </a>)
   </div>
 <?php endif;?>
   <?= form_open('forum/forum'); ?>

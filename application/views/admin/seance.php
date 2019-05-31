@@ -27,6 +27,12 @@
   <li class="nav-item">
     <a class="nav-link" href="<?= site_url('admin/certificats') ?>">Certificats</a>
   </li>
+	    <li class="nav-item">
+      <a class="nav-link" href="<?= site_url('admin/vehicule') ?>">Vehicules</a>
+    </li>
+  <li class="nav-item">
+      <a class="nav-link" target="blank" href="https://analytics.google.com/analytics/web/?authuser=0#/report-home/a137353005w197830555p192588774">Statistique Google</a>
+    </li>
 </ul>
 
 <canvas class="my-4 w-100 container" id="myChart" width="900" height="380"></canvas>
@@ -80,7 +86,7 @@
               <td class="p-3"><input type="date" class="form-control" name="in_date" value="<?= $row['date'] ?>"></td>
               <td class="p-3"><input type="time" class="form-control" name="in_time" value="<?= $row['time']?>"></td>
               <td></td>
-              <td><button type="submit" class="btn btn-warning text-white mt-3" data-toggle="collapse" data-target="#modifier">Modifier</button></td>
+              <td><button type="submit" class="btn btn-success text-white mt-3" data-toggle="collapse" data-target="#modifier">Modifier</button></td>
               <td><input  type="hidden" name="idseance" value="<?= $row['idseance'] ?>"></td>
             </form> 
           </tr>
